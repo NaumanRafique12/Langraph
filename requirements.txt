@@ -5,3 +5,5 @@ langchain-core
 python-multipart
 langchain-openai
 python-dotenv
+streamlit
+langgraph-checkpoint-sqlite
