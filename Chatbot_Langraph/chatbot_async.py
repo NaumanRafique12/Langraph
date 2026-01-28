@@ -9,6 +9,7 @@ from langgraph.prebuilt import ToolNode, tools_condition
 from langchain_community.tools import DuckDuckGoSearchRun
 from langchain_core.tools import tool
 from dotenv import load_dotenv
+import requests
 load_dotenv()
 # -------------------
 llm = ChatOpenAI()
@@ -85,10 +86,11 @@ def build_graph():
     graph.add_edge('tools', 'chat_node')
 
     chatbot = graph.compile()
+    return chatbot
 
 async def main():
-    chat_bot = await build_graph()
-    response = await chat_bot.invoke({"messages": [HumanMessage(content="what is the mutiply of 10 by 3 and explain in commentatory form")]})
+    chat_bot = build_graph()
+    response = await chat_bot.ainvoke({"messages": [HumanMessage(content="what is the mutiply of 10 by 3 and explain in commentatory form")]})
     print(response['messages' ][-1].content)
     
 if __name__ == "__main__":
